@@ -1,29 +1,25 @@
 <!DOCTYPE html>
-{% load staticfiles %}
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Blog</title>
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Medium Style Editor -->
-    <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css"
-          type="text/css" media="screen" charset="utf-8">
-    <!--Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/medium-editor.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Noto+Serif+JP" rel="stylesheet">
+    {% block stylesheet %}
+    {% endblock %}
 </head>
 <body>
 <!-- NAVBAR -->
-<nav class="navbar navbar-default techfont custom-navbar">
+
+<nav class="navbar navbar-inverse nav-font custom-navbar">
     <div class="container">
-
-
         <ul class="nav navbar-nav">
-            <li><a class='navbar-brand bigbrand' href="{% url 'post_list' %}">My Tech blog</a></li>
+            <a class='navbar-brand bigbrand' href="{% url 'post_list' %}">
+            </a>
             <li><a href="{% url 'about' %}">About</a></li>
             <li><a href="https://www.github.com">Github</a></li>
             <li><a href="https://www.linkedin.com">LinkedIn</a></li>
@@ -35,7 +31,6 @@
                 <li>
                     <a href="{% url 'post_new' %}">New Post</a>
                 </li>
-
                 <li>
                     <a href="{% url 'post_draft_list' %}">Drafts</a>
                 </li>
@@ -47,18 +42,23 @@
                     <a>Welcome: {{ user.username }}</a>
                 </li>
             {% else %}
-                <li><a class='nav navbar-right' href="{% url 'login' %}"><span class="glyphicon glyphicon-user"></span></a>
-                </li>
+                <a class='btn btn-success navbar-btn' href="{% url 'login' %}">
+                    <span class="glyphicon glyphicon-log-in"></span> Login
+                </a>
             {% endif %}
-
         </ul>
     </div>
 </nav>
 <!-- CONTENT BLOCK -->
+
 <div class="content container">
     {% block content %}
     {% endblock %}
 </div>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/medium-editor.min.js' %}"></script>
 
 </body>
 </html>

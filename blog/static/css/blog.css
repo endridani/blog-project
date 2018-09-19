@@ -1,12 +1,27 @@
-.techfont{
-    font-family: 'Russo One', sans-serif;
-    font-size: 1.5em;
+body {
+    background-image: url(../img/bg.png);
+}
+
+.nav-font{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3em;
     margin-bottom: 10px;
 }
 
-.bigbrand{
-    font-size: 1.5em;
+.navbar-brand {
+    position: inherit;
+    background: url(../img/logo.png) center center;
+    width: 170px;
+    background-size: contain;
 }
+
+.navbar-brand:hover{
+    position: relative;
+    background: url(../img/logo_hover.png) center center;
+    width: 170px;
+    background-size: contain;
+}
+
 
 .centerstage{
     margin-left: auto;
@@ -30,43 +45,4 @@
 .btn-comment{
     position: absolute;
     right: 0;
-}
-
-
-/* ---COLOR CHANGER--- */
-
-.loader {
-  filter:hue-rotate(0deg);
-  background:linear-gradient(45deg,#0f8,#08f);
-  animation:hue 10000ms infinite linear;
-}
-
-@keyframes spinify {
-  0% {
-    transform: translate(0px,0px);
-  }
-
-  33% {
-    transform: translate(0px,24px);
-    border-radius:100%;
-    width:10px;
-    height:10px;
-  }
-
-   66% {
-    transform:translate(0px,-16px);
-  }
-
-   88% {
-    transform:translate(0px,4px);
-  }
-
-  100% {
-    transform:translate(0px,0px);
-  }
-}
-
-@keyframes hue{
-  0%{filter: hue-rotate(0deg);}
-  100%{filter:hue-rotate(360deg);}
 }
