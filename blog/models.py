@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
-
+from django.shortcuts import get_object_or_404
 
 class Post(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
@@ -37,6 +37,10 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         return reverse('post_list')
+
+    def comment_count(self):
+        comment = Comment.objects.all()
+        return comment
 
     def __str__(self):
         return self.text

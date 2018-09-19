@@ -13,37 +13,41 @@
     {% endblock %}
 </head>
 <body>
+
 <!-- NAVBAR -->
 
-<nav class="navbar navbar-inverse nav-font custom-navbar">
+<nav class="navbar navbar-inverse nav-font">
     <div class="container">
         <ul class="nav navbar-nav">
-            <a class='navbar-brand bigbrand' href="{% url 'post_list' %}">
-            </a>
+            <li><a class='navbar-brand' href="{% url 'post_list' %}"></a></li>
             <li><a href="{% url 'about' %}">About</a></li>
             <li><a href="https://www.github.com">Github</a></li>
             <li><a href="https://www.linkedin.com">LinkedIn</a></li>
-
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
             {% if user.is_authenticated %}
                 <li>
-                    <a href="{% url 'post_new' %}">New Post</a>
+                    <a href="{% url 'post_new' %}">
+                        <span class="glyphicon glyphicon-edit"></span> New Post
+                    </a>
                 </li>
                 <li>
-                    <a href="{% url 'post_draft_list' %}">Drafts</a>
+                    <a href="{% url 'post_draft_list' %}">
+                        <span class="glyphicon glyphicon-check"></span> Drafts
+                    </a>
                 </li>
                 <li>
-                    <a href="{% url 'logout' %}">Log out</a>
+                    <a href="{% url 'post_draft_list' %}">
+                        <span class="badge"></span> {{ comment.count }} Pending Comments
+                    </a>
                 </li>
-
-                <li>
-                    <a>Welcome: {{ user.username }}</a>
-                </li>
+                <a class='btn btn-danger navbar-btn' href="{% url 'logout' %}">
+                    Log out <span class="glyphicon glyphicon-log-out"></span>
+                </a>
             {% else %}
                 <a class='btn btn-success navbar-btn' href="{% url 'login' %}">
-                    <span class="glyphicon glyphicon-log-in"></span> Login
+                    Login <span class="glyphicon glyphicon-log-in"></span>
                 </a>
             {% endif %}
         </ul>
@@ -51,9 +55,19 @@
 </nav>
 <!-- CONTENT BLOCK -->
 
-<div class="content container">
+<div class="container">
+
+    {% if user.is_authenticated %}
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            <strong>Welcome {{ user.username }}!</strong>
+        </div>
+    {% endif %}
+
     {% block content %}
     {% endblock %}
+
 </div>
 
 <script src="{% static 'js/jquery.min.js' %}"></script>

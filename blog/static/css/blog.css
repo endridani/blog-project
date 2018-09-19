@@ -5,7 +5,7 @@ body {
 .nav-font{
     font-family: 'Montserrat', sans-serif;
     font-size: 1.3em;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .navbar-brand {
@@ -20,6 +20,13 @@ body {
     background: url(../img/logo_hover.png) center center;
     width: 170px;
     background-size: contain;
+}
+
+
+.list-group {
+    border: 1px solid #3c763d;
+    border-left-width: 5px;
+    border-radius: 3px;
 }
 
 
