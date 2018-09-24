@@ -2,6 +2,12 @@ body {
     background-image: url(../img/bg.png);
 }
 
+/* --------------- Navbar Style ------------------ */
+
+.navbar-inverse .navbar-nav > .active > a{
+    background-color: #222;
+}
+
 .nav-font{
     font-family: 'Montserrat', sans-serif;
     font-size: 1.3em;
@@ -22,34 +28,57 @@ body {
     background-size: contain;
 }
 
+/* ------------------ Post List Style -------------------*/
 
-.list-group {
-    border: 1px solid #3c763d;
-    border-left-width: 5px;
-    border-radius: 3px;
+.post-list:hover{
+    text-decoration: none;
 }
 
-
-.centerstage{
-    margin-left: auto;
-    margin-right: auto;
+.post-panel:hover{
+    background-color: #eee;
 }
 
-.postdate{
+.post-details{
+    color: #777;
+}
+
+.badge-warning {
+    background-color: #f0ad4e;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+/* --------------- Post Detail ------------------------*/
+
+.post-form{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.medium-editor-textarea{
+    height: 20em;
+    overflow: auto;
+}
+
+.title{
+    margin-bottom: 2.5em;
     text-align: center;
 }
 
-.posttitle{
-    font-family: 'Russo One', sans-serif;
-    font-size: 3em;
+.post-content{
+    padding: 1em 0 1em 0;
+    font-size: 1.2em;
 }
 
-.postcontent{
+/* ------------------ About -------------------*/
+
+.logo{
+    max-width: 50%;
+}
+
+.about-form{
     font-family: 'Montserrat', sans-serif;
     font-size: 1.5em;
 }
 
-.btn-comment{
-    position: absolute;
-    right: 0;
-}
+
+

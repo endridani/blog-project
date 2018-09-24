@@ -1,18 +1,29 @@
 {% extends 'blog/base.html' %}
 {% load humanize %}
+{% block list %}class="active"{% endblock %}
 {% block content %}
 
     {% for post in post_list %}
-        <div class="list-group">
-            <a class="list-group-item" href="{% url 'post_detail' pk=post.pk %}">
-                <h3 class="list-group-item-heading">{{ post.title }}</h3>
-
-                <p class="list-group-item-text">
-                    <span class="glyphicon glyphicon-time"></span> {{ post.published_date|naturaltime }}
-                    &emsp;
-                    <span class="badge">{{ comment_count }}</span> Comments
-                </p>
+        <div class="col-md-9 col-md-offset-1">
+            <a class="post-list" href="{% url 'post_detail' pk=post.pk %}">
+                <div class="panel panel-success post-panel">
+                    <div class="panel-heading post-title"><h3>{{ post.title }}</h3></div>
+                    <div class="panel-body">
+                        <p class="list-group-item-text post-details">
+                            <span class="glyphicon glyphicon-time"></span> {{ post.published_date|naturaltime }}
+                            &emsp;
+                            <span class="glyphicon glyphicon-user"></span> {{ post.author.username }}
+                            &emsp;
+                            <span class="badge">{{ post.approve_comments.count }}</span> Comments
+                            &emsp;
+                            {% if post.pending_comments and user.is_authenticated %}
+                                <span class="badge badge-warning">{{ post.pending_comments.count }} Pending Comments</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
             </a>
+        <hr>
         </div>
     {% endfor %}
 

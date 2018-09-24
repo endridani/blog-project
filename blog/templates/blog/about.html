@@ -1,5 +1,23 @@
 {% extends 'blog/base.html' %}
+{% load static %}
+{% block about %}class="active"{% endblock %}
 {% block content %}
-    <h1>About this Company</h1>
-    <p>Thank for checking it out!</p>
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-info">
+            <div class="panel-heading"><img class="img-responsive center-block logo" src="{% static 'img/logo.png' %}">
+            </div>
+            <div class="panel-body about-form">
+                <p>
+                    TechPen is a simplified blogging interface that can be used by a single admin or as a company blog
+                    consisting on various admins. Admins can save posts to draft, publish post and approve comments. All
+                    the post can be modified with the Medium Editor library. External
+                    users can check posts and comment on them. Feel free to study the concepts used in this interface and
+                    expand on them. Thank you for visiting!<br><br>
+                    Requirements:<br>
+                    1. django==2.0.7<br>
+                    2. django-bootstrap3
+                </p>
+            </div>
+        </div>
+    </div>
 {% endblock %}

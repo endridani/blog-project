@@ -50,7 +50,7 @@ class DraftListView(LoginRequiredMixin, ListView):
     model = Post
 
     def get_queryset(self):
-        return Post.objects.filter(published_date__isnull=True).order_by('created_date')
+        return Post.objects.filter(published_date__isnull=True).order_by('-created_date')
 
 
 ########################################################
@@ -60,7 +60,7 @@ class DraftListView(LoginRequiredMixin, ListView):
 def post_publish(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.publish()
-    return redirect('post_detail', pk=pk)
+    return redirect('post_list')
 
 
 def add_comment_to_post(request, pk):

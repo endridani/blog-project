@@ -1,12 +1,19 @@
 {% extends 'blog/base.html' %}
+{% load bootstrap3 %}
+{% block post %}class="active"{% endblock %}
 {% block content %}
-    <h1>New Post</h1>
-    <form class="post-form" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-defaut">Save</button>
-    </form>
-
+    <div class="col-md-8 col-md-offset-2 post-form">
+    <div class="title">
+        <h1>New Post</h1>
+    </div>
+        <form method="POST">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <button type="submit" class="save btn btn-success">
+                <span class="glyphicon glyphicon-share"></span> Save to Draft
+            </button>
+        </form>
+    </div>
     <script>
         var editor = new MediumEditor('.editable');
     </script>

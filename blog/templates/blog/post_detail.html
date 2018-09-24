@@ -1,47 +1,88 @@
 {% extends 'blog/base.html' %}
+{% load static %}
+{% load humanize %}
+
 {% block content %}
-    <h1 class="posttitle loader">{{ post.title }}</h1>
-    {% if post.published_date %}
-        <div class="date postdate">
-        {{ post.published_date }}
-        </div>
-    {% else %}
-        <a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}">Publish</a>
-    {% endif %}
-    <p class="postcontent">{{ post.text|safe|linebreaksbr }}</p>
+    <div class="post-form">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
 
-    {% if user.is_authenticated %}
-        <a class="btn btn-primary" href="{% url 'post_edit' pk=post.pk %}">
-            <span class="glyphicon glyphicon-pencil"></span>
-        </a>
-        <a class="btn btn-primary" href="{% url 'post_remove' pk=post.pk %}">
-            <span class="glyphicon glyphicon-remove"></span>
-        </a>
-    {% endif %}
+                <div class="panel panel-success">
 
-    <hr>
-    <a class="btn btn-primary btn-comment" href="{% url 'add_comment_to_post' pk=post.pk %}">Add Comment</a>
+                    <div class="panel-heading clearfix">
+                        <h2 class="pull-left">{{ post.title }}</h2>
+                    </div>
 
-    <div class="container">
-        {% for comment in post.comments.all %}
-            <br>
-            {% if user.is_authenticated or comment.approved_comment %}
-                {{ comment.created_date }}
-                {% if not comment.approved_comment %}
-                    <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </a>
-                    <a class="btn btn-primary" href="{% url 'comment_approve' pk=comment.pk %}">
-                        <span class="glyphicon glyphicon-ok"></span>
-                    </a>
+                    <div class="panel-body">
+                        {% if post.published_date %}
+                            <span class="text-muted pull-right"><small class="text-muted">
+                                <span class="glyphicon glyphicon-time"></span>
+                                {{ post.published_date|naturaltime }}</small></span>
+                            <strong class="text-success"><span class="glyphicon glyphicon-user"></span>
+                                {{ post.author.username }}</strong>
+                        {% endif %}
+                        <div class="post-content">
+                            <p>{{ post.text|safe|linebreaksbr }}</p>
+                        </div>
+
+                        {% if user.is_authenticated %}
+                            {% if not post.published_date %}
+                                <div class="btn-group pull-left">
+                                    <a class="btn btn-warning" href="{% url 'post_publish' pk=post.pk %}">
+                                        <span class="glyphicon glyphicon-ok"></span> Publish</a>
+                                </div>
+                            {% endif %}
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-success" href="{% url 'post_edit' pk=post.pk %}">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                                <a class="btn btn-danger" href="{% url 'post_remove' pk=post.pk %}">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if post.published_date %}
+                    <div class="panel panel-success">
+                        <div class="panel-heading clearfix">
+                            <h4 class="pull-left">Comment Panel</h4>
+
+                            <div class="btn-group pull-right">
+                                <a href="{% url 'add_comment_to_post' pk=post.pk %}" class="btn btn-primary">
+                                    Add Comment
+                                </a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            {% for comment in post.comments.all %}
+                                {% if user.is_authenticated or comment.approved_comment %}
+                                    <span class="text-muted pull-right">
+                                <small class="text-muted">{{ comment.created_date|naturaltime }}</small>
+                            </span>
+                                    <strong class="text-success">@{{ comment.author }}</strong>
+                                    <p>{{ comment.text|safe|linebreaks }}</p>
+                                    {% if not comment.approved_comment %}
+                                        <a class="btn btn-success btn-sm"
+                                           href="{% url 'comment_approve' pk=comment.pk %}">
+                                            <span class="glyphicon glyphicon-ok"></span> Approve
+                                        </a>
+                                        <a class="btn btn-danger btn-sm"
+                                           href="{% url 'comment_remove' pk=comment.pk %}">
+                                            <span class="glyphicon glyphicon-remove"></span> Dismiss
+                                        </a>
+                                    {% endif %}
+                                    <hr>
+                                {% endif %}
+                            {% empty %}
+                                <p>No Comments</p>
+                            {% endfor %}
+                        </div>
+                    </div>
                 {% endif %}
 
-                <p>{{ comment.text|safe|linebreaks }}</p>
-                <p>Posted By: {{ comment.author }}</p>
-            {% endif %}
-            {% empty %}
-            <p>No Comments</p>
-        {% endfor %}
+            </div>
+        </div>
     </div>
-
 {% endblock %}
