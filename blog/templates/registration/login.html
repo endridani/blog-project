@@ -1,18 +1,28 @@
 {% extends 'blog/base.html' %}
+{% load bootstrap3 %}
 {% block content %}
-    <div class="jumbotron">
-        <h2>Please Login:</h2>
-        <h3>(Must be SuperUser, please check with the site admin)</h3>
 
-        {% if form.errors %}
-            <p>Your username and password didn't match! Please try again.</p>
-        {% endif %}
+    <div class="col-md-5 col-md-offset-3">
+        <div class="alert alert-warning" role="alert">
+            <strong>Warning!</strong>
+            Must be SuperUser! Please check with the admin site.
+        </div>
+        <div class="panel panel-success post-form">
+            <div class="panel-heading login-title"><h3>Admin Login Credentials:</h3></div>
+            <div class="panel-body">
+                {% if form.errors %}
+                    <p>Your username and password didn't match! Please try again.</p>
+                {% endif %}
 
-        <form action="{% url 'login' %}" method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" class="btn btn-primary" value="Login">
-            <input type="hidden" name="next" value="{{ next }}">
-        </form>
+                <form action="{% url 'login' %}" method="POST">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <div class="pull-right">
+                        <input type="submit" class="btn btn-success" value="Login">
+                    </div>
+                    <input type="hidden" name="next" value="{{ next }}">
+                </form>
+            </div>
+        </div>
     </div>
 {% endblock %}

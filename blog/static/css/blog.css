@@ -80,5 +80,10 @@ body {
     font-size: 1.5em;
 }
 
+/* ------------------ Login -------------------*/
+
+.login-title {
+    text-align: center;
+}
 
 
